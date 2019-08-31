@@ -10,7 +10,7 @@ Here is the basic guide of how to use EDL mode of Qualcomm-based devices (we're 
 
 ### Installation details
 
-- Install the dependencies: `pip3 install pyusb pyserial capstone keystone-engine`
+- Install the dependencies: `sudo -H pip3 install pyusb pyserial capstone keystone-engine`
 
 Additionally, if you're running Linux and having issues with device access:
 
