@@ -8,7 +8,7 @@ Here is the basic guide of how to use EDL mode of Qualcomm-based devices (we're 
 - android-platform-tools (ADB, Fastboot)
 - EDL firehose loader binaries for your devices (some of the known KaiOS device loaders can be found [here](http://edl.bananahackers.net/))
 
-## Installation details
+### Installation details
 
 - Install the `pyusb` and `pyserial` dependencies: `python3 -m pip install pyusb pyserial`
 - Install capstone + keystone engine:
@@ -41,7 +41,7 @@ Additionally, if you're running Linux and having issues with device access:
 
 All further examples are provided for CAT B35.
 
-## Checking whether the firehose works
+### Checking whether the firehose works
 
 For this purpose, just use `edl.py` with a single `-loader` parameter:
 
@@ -74,7 +74,7 @@ If you don't see the "Successfully uploaded programmer" message, that means the 
 
 Note that you should supply the loader in any further command, but it may also work without it if the loader has already been sent and accepted successfully.
 
-## Getting partition layout
+### Getting partition layout
 
 First, using the `edl.py`, get the partition table layout with `-printgpt` option:
 
@@ -133,7 +133,7 @@ python3 edl.py -loader generic_CAT_B35.mbn -memtbl memtbl.img
 python3 edl.py -loader generic_CAT_B35.mbn -qfp qfprom.img
 ```
 
-## Partition readback
+### Partition readback
 
 Now, when we have the partition list, we can backup any partition from the device with `-r [partname] [filename]` option. For instance:
 
@@ -143,9 +143,9 @@ python3 edl.py -loader generic_CAT_B35.mbn -r recovery recovery.img
 
 This will save the recovery partition contents into the `recovery.img` file. The `edl.py` utility also allows raw sector-to-sector readback but you're welcome to see the command help yourself if you need to do this.
 
-## Partition flashing
+### Partition erasing and flashing
 
-Finally, this is the functionality we need most.
+Finally, this is the functionality we need most (along with readback, of course).
 
 To erase a partition, supply the `-e [partname]` option:
 
@@ -161,7 +161,7 @@ python3 edl.py -loader generic_CAT_B35.mbn -w recovery recovery.img
 
 This will write the recovery partition contents from the `recovery.img` file. The `edl.py` utility also allows raw sector-to-sector writing but you're welcome to see the command help yourself if you need to do this.
 
-## Device rebooting
+### Device rebooting
 
 After you're done with all necessary operations, it's convenient to reboot the device into a normal mode with `-reset` option:
 
