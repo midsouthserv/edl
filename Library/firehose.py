@@ -62,8 +62,10 @@ class qualcomm_firehose:
                 return True
         return False
 
-    def xmlsend(self,data):
+    def xmlsend(self,data, skipResponse=False):
         self.cdc.write(data,self.cfg.MaxXMLSizeInBytes)
+        if skipResponse:
+            return True, {}
         data=bytearray()
         while b"<response" not in data:
             try:
@@ -238,7 +240,7 @@ class qualcomm_firehose:
              f" num_partition_sectors=\"{num_partition_sectors}\""+\
              f" physical_partition_number=\"{physical_partition_number}\""+\
              f" start_sector=\"{start_sector}\"/>\n</data>"
-        rsp=self.xmlsend(data)
+        rsp=self.xmlsend(data, True)
         resData=bytearray()
         if (rsp[0])==True:
             bytesToRead=self.cfg.SECTOR_SIZE_IN_BYTES*num_partition_sectors
@@ -281,7 +283,7 @@ class qualcomm_firehose:
                  f" num_partition_sectors=\"{num_partition_sectors}\""+\
                  f" physical_partition_number=\"{physical_partition_number}\""+\
                  f" start_sector=\"{start_sector}\"/>\n</data>"
-            rsp=self.xmlsend(data)
+            rsp=self.xmlsend(data, True)
             if (rsp[0])==True:
                 bytesToRead=self.cfg.SECTOR_SIZE_IN_BYTES*num_partition_sectors
                 total=bytesToRead
