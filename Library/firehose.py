@@ -178,11 +178,6 @@ class qualcomm_firehose:
                 self.cdc.write(b'',self.cfg.MaxPayloadSizeToTargetInBytes)
                 time.sleep(0.2)
                 info = self.xml.getlog(self.cdc.read(self.cfg.MaxXMLSizeInBytes))
-                rsp=self.xml.getresponse(self.cdc.read(self.cfg.MaxXMLSizeInBytes))
-                if rsp["value"]=="ACK":
-                    return True
-                else:
-                    print(f"Error:{info[1]}")
             else:
                 print(f"Error:{rsp}")
                 return False
