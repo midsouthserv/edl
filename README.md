@@ -4,7 +4,7 @@ Here is the basic guide of how to use EDL mode of Qualcomm-based devices (we're 
 
 ## Prerequisites
 
-- Python 3.7 64-Bit
+- Python 3.7 (or newer) 64-Bit
 - android-platform-tools (ADB, Fastboot)
 - EDL firehose loader binaries for your devices (some of the known KaiOS device loaders can be found [here](http://edl.bananahackers.net/))
 
