@@ -1,0 +1,4 @@
+capstone==4.0.2
+keystone==18.0.0
+pyusb==1.1.0
+pyserial==3.5
