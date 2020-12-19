@@ -62,8 +62,10 @@ class qualcomm_firehose:
                 return True
         return False
 
-    def xmlsend(self,data):
+    def xmlsend(self,data, skipResponse=False):
         self.cdc.write(data,self.cfg.MaxXMLSizeInBytes)
+        if skipResponse:
+            return True, {}
         data=bytearray()
         while b"<response" not in data:
             try:
@@ -176,11 +178,6 @@ class qualcomm_firehose:
                 self.cdc.write(b'',self.cfg.MaxPayloadSizeToTargetInBytes)
                 time.sleep(0.2)
                 info = self.xml.getlog(self.cdc.read(self.cfg.MaxXMLSizeInBytes))
-                rsp=self.xml.getresponse(self.cdc.read(self.cfg.MaxXMLSizeInBytes))
-                if rsp["value"]=="ACK":
-                    return True
-                else:
-                    print(f"Error:{info[1]}")
             else:
                 print(f"Error:{rsp}")
                 return False
@@ -238,7 +235,7 @@ class qualcomm_firehose:
              f" num_partition_sectors=\"{num_partition_sectors}\""+\
              f" physical_partition_number=\"{physical_partition_number}\""+\
              f" start_sector=\"{start_sector}\"/>\n</data>"
-        rsp=self.xmlsend(data)
+        rsp=self.xmlsend(data, True)
         resData=bytearray()
         if (rsp[0])==True:
             bytesToRead=self.cfg.SECTOR_SIZE_IN_BYTES*num_partition_sectors
@@ -281,7 +278,7 @@ class qualcomm_firehose:
                  f" num_partition_sectors=\"{num_partition_sectors}\""+\
                  f" physical_partition_number=\"{physical_partition_number}\""+\
                  f" start_sector=\"{start_sector}\"/>\n</data>"
-            rsp=self.xmlsend(data)
+            rsp=self.xmlsend(data, True)
             if (rsp[0])==True:
                 bytesToRead=self.cfg.SECTOR_SIZE_IN_BYTES*num_partition_sectors
                 total=bytesToRead
