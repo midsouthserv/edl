@@ -10,7 +10,7 @@ Here is the basic guide of how to use EDL mode of Qualcomm-based devices (we're 
 
 ### Installation details
 
-- Install the dependencies: `sudo -H pip3 install -r requirements.txt` or `pip install -r requirements.txt` if you're in a Conda environment
+- Install the dependencies: `sudo -H pip3 install -r requirements.txt` or just `pip install -r requirements.txt` if you're in a Conda environment
 
 Additionally, if you're running Linux and having issues with device access:
 
